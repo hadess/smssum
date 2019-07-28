@@ -10,7 +10,6 @@ unsigned short Checksum(unsigned char *buffer, unsigned short CC_Last, unsigned 
 int main(int argc, char *argv[])
 {
     FILE *fp;
-    FILE *fpw;
     short TMRValues[3] = {0x1FF0, 0x3FF0, 0x7FF0};
     unsigned char ChecksumRanges[9] = {0x1F, 0x3F, 0x7F, 0xBF, 0x7F, 0x7F, 0x7F, 0x7F, 0x7F};
     unsigned char ROMPages[4] = {0x02, 0x06, 0x0E, 0x1E};
@@ -99,24 +98,19 @@ int main(int argc, char *argv[])
         }
     }
 
-    // Open the file for writing.
+    // Check the checksum.
 
-    if((fpw = fopen(argv[1],"wb")) == NULL)
+    if (buffer[TMRStart + 0x0A] != (ComputedChecksum & 0xFF) ||
+        buffer[TMRStart + 0x0B] != ((ComputedChecksum >> 8) & 0xFF))
     {
-        fprintf(stderr,"\nCould not open the file (%s).\n",argv[1]);
+        fprintf(stderr,"\nChecksum did not match\n");
         exit(1);
     }
 
-    // Updating the new checksum.
-
-    buffer[TMRStart + 0x0A] = ComputedChecksum & 0xFF;
-    buffer[TMRStart + 0x0B] = (ComputedChecksum >> 8) & 0xFF;
-    fwrite(buffer, sizeof(char), fsize, fpw);
-
     // Program-closing goodies.
+    printf("\nChecksum verified successfully\n");
 
     free(buffer);
-    fclose(fpw);
     return 0;
 }
 
