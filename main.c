@@ -1,5 +1,14 @@
 /*
-   Master System checksum fixer, by Daniel Hall (Dandaman955):- 14/04/2017 10:02:01 - 19/04/2017 07:43:55
+   Master System checksum fixer
+   Originally written between 14/04/2017 10:02:01 - 19/04/2017 07:43:55 by
+   Daniel Hall (Dandaman955) <Dandaman95@googlemail.com>
+
+   Copyright (c) 2017 Daniel Hall
+   Copyright (c) 2019 Bastien Nocera
+
+   This program is free software; you can redistribute it and/or modify it
+   under the terms of the GNU General Public License version 3 as published by
+   the Free Software Foundation.
 */
 
 #include <stdio.h>
