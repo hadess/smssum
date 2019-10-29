@@ -25,11 +25,11 @@ int main(int argc, char *argv[])
     unsigned char TMR[8] = "TMR SEGA";
     unsigned char *buffer;
 
-    puts("Welcome to the Master System Checksum Fixer!");
+    puts("Welcome to the Master System Checksum Verifier!");
 
     if(argc<2)
     {
-        fprintf(stderr,"\nNot enough arguments specified.\n");
+        fprintf(stderr,"\nUsage: %s romfile\n", argv[0]);
         exit(1);
     }
 
@@ -117,7 +117,7 @@ int main(int argc, char *argv[])
     }
 
     // Program-closing goodies.
-    printf("\nChecksum verified successfully\n");
+    printf("\nChecksum verified successfully %x%x\n", (ComputedChecksum & 0xFF), (ComputedChecksum >> 8) & 0xFF);
 
     free(buffer);
     return 0;
